@@ -1,0 +1,156 @@
+{%extends 'base.html' %}
+{% block extra_css %}
+<style>
+    body{
+        min-height:100vh;
+        margin: 0;
+        background-color:rgb(231, 255, 243);
+    }
+    .custom-box{
+        border-radius:8px;
+        height:150px;
+        padding:20px;
+        margin-left:20px;
+        box-shadow:0 4px 8px rgba(0,0,0,0.2);
+        width:300px;
+        text-align:center;
+    }
+    .total-display-box{
+        margin-bottom:20px;
+    }
+    .transaction-header {
+        background-color: #e9ecef;
+        border: 2px solid #90AB8B;
+    }
+    .transaction-item {
+    background-color: #fdfdfd;
+    border: 1px solid #90AB8B;
+    transition: box-shadow 0.2s ease;
+    }
+    .transaction-item:hover {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+    .transaction-item div {
+    padding: 5px 10px;
+
+    }
+   .font-appear{
+    font-size:2em;
+   }
+   .data-font-size{
+    font-size:1.5em;
+   }
+    
+</style>
+{% endblock %}
+
+ {% block content %}
+ <div class="d-flex justify-content-center total-display-box"> 
+    <div class="custom-box">
+        <h3 style="color:blue">Income</h3>
+        <h1>{{ total_income }}</h1>
+    </div> 
+
+
+    <div class="custom-box">
+         <h3 style="color:red;">Expense</h3>
+         <h1>{{ total_expenses }}</h1>
+    </div> 
+
+
+    <div class="custom-box">
+        <h3 style="color:green;">Net Balance</h3>
+        <h1>{{net_balance}}</h1>
+    </div> 
+</div>
+
+<br>
+<h2 class="mt-4 text-center">Recent Transactions</h2>
+
+<form method="POST" class="text-center mb-3">
+  <select name="record_type" class="form-select d-inline w-auto">
+    <option value="income" {% if record_type == 'income' %}selected{% endif %}>Income</option>
+    <option value="expense" {% if record_type == 'expense' %}selected{% endif %}>Expense</option>
+  </select>
+  <button type="submit" class="btn btn-primary">Show</button>
+</form>
+
+<h2 class="mt-4 text-center"></h2>
+
+<!-- Heading row shown once -->
+<div class="transaction-header d-flex fw-bold mb-2 p-2 rounded shadow-sm">
+  <div class="flex-fill font-appear">ID</div>
+  <div class="flex-fill font-appear">Amount</div>
+  <div class="flex-fill font-appear">
+    {% if record_type == 'income' %}Source{% else %}Category{% endif %}
+  </div>
+  <div class="flex-fill font-appear">Date</div>
+  <div class="flex-fill font-appear">Description</div>
+  <div class="flex-fill font-appear text-center" >Action</div>
+</div>
+
+<!-- Records -->
+{% for rec in records %}
+  <div class="transaction-item d-flex align-items-center mb-2 p-2 rounded shadow-sm">
+    <div class="flex-fill data-font-size">{{ rec.id }}</div>
+    {% if record_type == 'income' %}
+      <div class="flex-fill data-font-size">₹{{ rec.i_amount }}</div>
+      <div class="flex-fill data-font-size">{{ rec.source }}</div>
+      <div class="flex-fill data-font-size">{{ rec.i_date }}</div>
+      <div class="flex-fill " style="font:1.2em;">{{ rec.i_description }}</div>
+    {% else %}
+      <div class="flex-fill data-font-size">₹{{ rec.e_amount }}</div>
+      <div class="flex-fill data-font-size">{{ rec.category }}</div>
+      <div class="flex-fill data-font-size">{{ rec.e_date }}</div>
+      <div class="flex-fill" style="font:1.2em;">{{ rec.e_description }}</div>
+    {% endif %}
+    <div class="flex-fill text-center">
+      <form method="POST" action="{{ url_for('delete_record', record_type=record_type, record_id=rec.id) }}">
+        <button type="submit" class="btn-close" aria-label="Close"></button>
+      </form>
+    </div>
+  </div>
+{% else %}
+  <p class="text-center">No {{ record_type }} records yet.</p>
+{% endfor %}
+
+<h2 class="mt-4 text-center">Dashboard Charts</h2>
+
+<div class="row">
+  <!-- Income vs Expense -->
+  <div class="col-md-4">
+    <div class="card shadow-sm mb-4">
+      <div class="card-header bg-success text-white">Income vs Expense</div>
+      <div class="card-body text-center">
+        <img src="{{ url_for('static', filename='income_expense.png') }}" 
+             class="img-fluid rounded" alt="Income vs Expense">
+      </div>
+    </div>
+  </div>
+
+  <!-- Expense Breakdown -->
+  <div class="col-md-4">
+    <div class="card shadow-sm mb-4">
+      <div class="card-header bg-danger text-white">Expense Breakdown</div>
+      <div class="card-body text-center">
+        <img src="{{ url_for('static', filename='expense_pie.png') }}" 
+             class="img-fluid rounded" alt="Expense Breakdown">
+      </div>
+    </div>
+  </div>
+
+  <!-- Net Balance Trend -->
+  <div class="col-md-4">
+    <div class="card shadow-sm mb-4">
+      <div class="card-header bg-primary text-white">Net Balance Trend</div>
+      <div class="card-body text-center">
+        <img src="{{ url_for('static', filename='net_balance.png') }}" 
+             class="img-fluid rounded" alt="Net Balance">
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+{%endblock%}

@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+{% block title %}
+Expense - Add
+{% endblock %}
+
+{% block extra_css %}
+<style>
+.main-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #90AB8B;
+  height: calc(100vh - 70px);
+  width: 100%;
+}
+
+.expense-card {
+  width: 850px;
+  padding: 25px;
+  border-radius: 12px;
+  background: #5A7863;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+  transition: transform 0.2s ease-in-out;
+}
+
+.expense-card:hover {
+  transform: scale(1.02);
+}
+
+.expense-card h2 {
+  font-family: "Segoe UI", sans-serif;
+  font-weight: 600;
+  color: #ffffff;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.expense-card .form-control,
+.expense-card .form-select {
+  border-radius: 6px;
+  border: 1px solid #aaa;
+  padding: 10px;
+  width: 100%;
+}
+
+.expense-card .btn-success {
+  background-color: #3B4953;
+  border: none;
+  font-weight: 600;
+}
+
+.expense-card .btn-success:hover {
+  background-color: #47604f;
+}
+
+label.form-label {
+  font-size: 1.2em;
+  font-weight: 700;
+  color: white;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="main-container">
+  <div class="expense-card">
+    <h2>Add Expense</h2>
+    <form method="POST">
+      {{ form.hidden_tag() }}
+
+      <div class="mb-3">
+        {{ form.e_amount.label(class="form-label") }}
+        {{ form.e_amount(class="form-control") }}
+      </div>
+
+      <div class="mb-3">
+        {{ form.e_date.label(class="form-label") }}
+        {{ form.e_date(class="form-control") }}
+      </div>
+
+      <div class="mb-3">
+        {{ form.category.label(class="form-label") }}
+        {{ form.category(class="form-select") }}
+      </div>
+
+      <div class="mb-3">
+        {{ form.e_description.label(class="form-label") }}
+        {{ form.e_description(class="form-control") }}
+      </div>
+
+      {{ form.submit(class="btn btn-success w-100 mt-3") }}
+    </form>
+  </div>
+</div>
+{% endblock %}
