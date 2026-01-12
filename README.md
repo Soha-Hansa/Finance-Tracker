@@ -1,4 +1,4 @@
-# Finance-Tracker
+# Finance Tracker 💰📊
 Take control of your finances with a modern, intuitive Flask‑based Expense Tracker. This project is designed to help users record, visualize, and analyze their income and expenses with ease.
 
 ## 👨‍💻 Dev's Corner
@@ -47,17 +47,6 @@ Finance-Tracker/
 ├── README.md                          # Documentation
 └── templates/, static/   # HTML templates and static assets
 
-## ⚙️ Installation & Setup
-
-### 1. Clone the repository
-```bash
-git clone https://github.com/Soha-Hansa/Finance-Tracker.git
-cd Finance-Tracker
-
-### Install Dependecy 
-pip install -r requirements.txt
-
-# Finance Tracker 💰📊
 
 ## Badges
 [![Python](https://img.shields.io/badge/Python-3.10-blue.svg)](https://www.python.org/)
@@ -73,3 +62,13 @@ Even small tips or explanations will help me grow as a developer. Thank you for 
 # Contact Details:
 gmail: compsoha1024@gmail.com 
 Instagram: soha.calculative
+## ⚙️ Installation & Setup
+
+### 1. Clone the repository
+```bash
+git clone https://github.com/Soha-Hansa/Finance-Tracker.git
+cd Finance-Tracker
+
+### Install Dependecy 
+pip install -r requirements.txt
+
