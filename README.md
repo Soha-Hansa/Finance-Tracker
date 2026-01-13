@@ -28,9 +28,8 @@ I hope you enjoy exploring it!
  [Dashboard Screenshot](screenshots/dashboard.png)
  [Expense Screenshot](screenshots/expense.png)
 
- ## For viewing this site 
-    https://finsight-syp4.onrender.com/dashboard
-    click on top ↑
+## 🚀 Deployment
+Check out the live app here: [Expense Tracker](https://finsight-syp4.onrender.com/dashboard)
 ## 🛠️ Tech Stack -
  Backend: Flask, Flask-SQLAlchemy, Flask-Migrate - 
  Frontend: Bootstrap, Jinja2 templates - 
